@@ -30,8 +30,9 @@ var packDir = '/tmp/h5p-packing';
 var createH5P = function () {
   var cmd = 'cd ' + packDir + ';h5p pack ';
   for (var i in config.h5ps) {
-    cmd += config.h5ps[i].name + ' ';
+    cmd += config.h5ps[i].name + '-' + config.h5ps[i].branch + ' ';
   }
+  
   exec(cmd, function (error, stdout, stderr) {
     if (error) {
       console.log('Failed building H5P :' + error + ' - ' + stderr);
@@ -53,7 +54,7 @@ for (var i in config.h5ps) {
   var lib = config.h5ps[i];
   
   // Git clone
-  var cmd = 'cd ' + packDir + ';git clone git@github.com:h5p/' + lib.name + ' --branch ' + lib.branch + ' --single-branch';
+  var cmd = 'cd ' + packDir + ';git clone git@github.com:h5p/' + lib.name + ' ' + lib.name + '-' + lib.branch + ' --branch ' + lib.branch + ' --single-branch';
   
   console.log('Cloning ' + lib.name + ' [' + lib.branch + ']');
   
